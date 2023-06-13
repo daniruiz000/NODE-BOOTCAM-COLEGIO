@@ -180,7 +180,7 @@ describe("User Controler", () => {
     expect(adminResponse.body.data?.length).toBeDefined()
   })
 
-  it("GET /user/id returns a user by id", async () => {
+  it("GET /user/id returns user by id", async () => {
     // NOT LOGED -> 401
     await request(app)
       .get(`/user/${createdUserId}`)
@@ -200,7 +200,7 @@ describe("User Controler", () => {
       .expect(200)
     expect(adminResponse.body.firstName).toBeDefined()
   })
-  it("PUT /user/id Modify user when token is send", async () => {
+  it("PUT /user/id modify user by id", async () => {
     const updatedData = { firstName: "Update name" }
     // NOT LOGED -> 401
     await request(app)
@@ -224,7 +224,7 @@ describe("User Controler", () => {
     expect(adminResponse.body.firstName).toBe(updatedData.firstName)
   })
 
-  it("DELET /user/id Do not delete user when token does not exist", async () => {
+  it("DELET /user/id delete user by id", async () => {
     // NOT LOGED -> 401
     await request(app)
       .delete(`/user/${createdUserId}`)
