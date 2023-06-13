@@ -1,4 +1,5 @@
 import { IUserCreate, ROL } from "../src/domain/entities/user-entity";
+import { IClassroomCreate } from "./domain/entities/classroom-entity";
 
 export const userList: IUserCreate[] = [
   { firstName: "Antonio", lastName: "Perez", email: "antonio@gmail.com", password: "12345678", children: [], rol: ROL.STUDENT },
@@ -11,3 +12,10 @@ export const userList: IUserCreate[] = [
   { firstName: "Toni ", lastName: "Moreno", email: "toni@gmail.com", password: "55555555", children: [], rol: ROL.TEACHER },
   { firstName: "Antonio", lastName: "Alcaráz", email: "admin@gmail.com", password: "55555555", children: [], rol: ROL.ADMIN },
 ];
+
+export const classroomList: IClassroomCreate[] = [
+  { name: "4º-ESO-CIENCIAS" },
+  { name: "3º-ESO-CIENCIAS" },
+  { name: "3º-ESO-LETRAS" },
+  { name: "4º-ESO-LETRAS" },
+]

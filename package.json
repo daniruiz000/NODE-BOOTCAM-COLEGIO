@@ -4,11 +4,12 @@
   "description": "Node bootcam colegio",
   "main": "src/index.ts",
   "scripts": {
-    "precommit": "npm run lint && npm run build && npm run test",
+    "precommit": "npm run lint && npm run test && npm run build",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
     "start": "ts-node-dev --inspect -- ./src/index.ts",
     "seed:users": "ts-node-dev ./src/domain/utils/users.seed.ts",
+    "seed:classrooms": "ts-node-dev ./src/domain/utils/classrooms.seed.ts",
     "seed:all": "ts-node-dev ./src/utils/users-cakes-categories-orders.seed.ts",
     "start:pro": "npm run build && node ./dist/index.js",
     "build": "tsc",

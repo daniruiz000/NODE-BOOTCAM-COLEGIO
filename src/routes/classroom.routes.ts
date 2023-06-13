@@ -1,31 +1,31 @@
 import express from "express";
 
 import { isAuth } from "../domain/services/auth.middleware";
-import { categoryService } from "../domain/services/category.service";
+import { classroomService } from "../domain/services/classroom.service";
 import { checkParams } from "../domain/services/checkParams.middleware";
 
-export const categoryRouter = express.Router();
+export const classroomRouter = express.Router();
 
-categoryRouter.get("/", checkParams, categoryService.getAllCategories);
-categoryRouter.get("/:id", categoryService.getCategoryById);
-categoryRouter.get("/name/:name", categoryService.getCategoryByName);
-categoryRouter.post("/", isAuth, categoryService.createCategory);
-categoryRouter.delete("/:id", isAuth, categoryService.deleteCategory);
-categoryRouter.put("/:id", isAuth, categoryService.updateCategory);
+classroomRouter.get("/", checkParams, isAuth, classroomService.getClassrooms);
+classroomRouter.get("/:id", isAuth, classroomService.getClassroomById);
+classroomRouter.get("/name/:name", isAuth, classroomService.getClassroomByName);
+classroomRouter.post("/", isAuth, classroomService.createClassroom);
+classroomRouter.delete("/:id", isAuth, classroomService.deleteClassroom);
+classroomRouter.put("/:id", isAuth, classroomService.updateClassroom);
 
 /**
  * @swagger
  * tags:
- *   name: Category
- *   description: API for managing categorys
+ *   name: Classroom
+ *   description: API for managing classrooms
  */
 
 /**
  * @swagger
- * /category:
+ * /classroom:
  *   get:
- *     summary: Get all categorys
- *     tags: [Category]
+ *     summary: Get all classrooms
+ *     tags: [Classroom]
  *     parameters:
  *       - in: query
  *         name: page
@@ -39,7 +39,7 @@ categoryRouter.put("/:id", isAuth, categoryService.updateCategory);
  *         description: The number of items to return
  *     responses:
  *       200:
- *         description: The list of categorys
+ *         description: The list of classrooms
  *         content:
  *           application/json:
  *             schema:
@@ -48,7 +48,7 @@ categoryRouter.put("/:id", isAuth, categoryService.updateCategory);
  *                 data:
  *                   type: array
  *                   items:
- *                     $ref: '#/components/schemas/Category'
+ *                     $ref: '#/components/schemas/Classroom'
  *                   pagination:
  *                     $ref: '#/components/schemas/Pagination'
  *       400:
@@ -61,26 +61,26 @@ categoryRouter.put("/:id", isAuth, categoryService.updateCategory);
 
 /**
  * @swagger
- * /category/{id}:
+ * /classroom/{id}:
  *   get:
- *     summary: Get an category by ID
- *     tags: [Category]
+ *     summary: Get an classroom by ID
+ *     tags: [Classroom]
  *     parameters:
  *       - in: path
  *         name: id
  *         schema:
  *           type: string
  *         required: true
- *         description: The category ID
+ *         description: The classroom ID
  *     responses:
  *       200:
- *         description: The category info
+ *         description: The classroom info
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Category'
+ *               $ref: '#/components/schemas/Classroom'
  *       404:
- *         description: Category not found
+ *         description: Classroom not found
  *         content:
  *           application/json:
  *             schema:
@@ -89,26 +89,26 @@ categoryRouter.put("/:id", isAuth, categoryService.updateCategory);
 
 /**
  * @swagger
- * /category/name/{name}:
+ * /classroom/name/{name}:
  *   get:
- *     summary: Get an category by name
- *     tags: [Category]
+ *     summary: Get an classroom by name
+ *     tags: [Classroom]
  *     parameters:
  *       - in: path
  *         name: name
  *         schema:
  *           type: string
  *         required: true
- *         description: The category name
+ *         description: The classroom name
  *     responses:
  *       200:
- *         description: The category info
+ *         description: The classroom info
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Category'
+ *               $ref: '#/components/schemas/Classroom'
  *       404:
- *         description: Category not found
+ *         description: Classroom not found
  *         content:
  *           application/json:
  *             schema:
@@ -117,47 +117,47 @@ categoryRouter.put("/:id", isAuth, categoryService.updateCategory);
 
 /**
  * @swagger
- * /category:
+ * /classroom:
  *   post:
- *     summary: Create a new category
- *     tags: [Category]
+ *     summary: Create a new classroom
+ *     tags: [Classroom]
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/Category'
+ *             $ref: '#/components/schemas/Classroom'
  *     responses:
  *       201:
- *         description: The category was created
+ *         description: The classroom was created
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Category'
+ *               $ref: '#/components/schemas/Classroom'
  */
 
 /**
  * @swagger
- * /category/{id}:
+ * /classroom/{id}:
  *   delete:
- *     summary: Delete an category by ID
- *     tags: [Category]
+ *     summary: Delete an classroom by ID
+ *     tags: [Classroom]
  *     parameters:
  *       - in: path
  *         name: id
  *         schema:
  *           type: string
  *         required: true
- *         description: The category ID
+ *         description: The classroom ID
  *     responses:
  *       200:
- *         description: The category was successfully deleted
+ *         description: The classroom was successfully deleted
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Category'
+ *               $ref: '#/components/schemas/Classroom'
  *       404:
- *         description: The category was not found
+ *         description: The classroom was not found
  *         content:
  *           application/json:
  *             schema:
@@ -166,30 +166,30 @@ categoryRouter.put("/:id", isAuth, categoryService.updateCategory);
 
 /**
  * @swagger
- * /category/{id}:
+ * /classroom/{id}:
  *   put:
- *     summary: Update an category by ID
- *     tags: [Category]
+ *     summary: Update an classroom by ID
+ *     tags: [Classroom]
  *     parameters:
  *       - in: path
  *         name: id
  *         schema:
  *           type: string
  *         required: true
- *         description: The category ID
+ *         description: The classroom ID
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/Category'
+ *             $ref: '#/components/schemas/Classroom'
  *     responses:
  *       200:
- *         description: The category was successfully updated
+ *         description: The classroom was successfully updated
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Category'
+ *               $ref: '#/components/schemas/Classroom'
  *       400:
  *         description: Some parameters are missing or invalid
  *         content:
@@ -197,7 +197,7 @@ categoryRouter.put("/:id", isAuth, categoryService.updateCategory);
  *             schema:
  *               $ref: '#/components/schemas/Error'
  *       404:
- *         description: The category was not found
+ *         description: The classroom was not found
  *         content:
  *           application/json:
  *             schema:
@@ -206,10 +206,10 @@ categoryRouter.put("/:id", isAuth, categoryService.updateCategory);
 
 /**
  * @swagger
- * /category/login:
+ * /classroom/login:
  *   post:
- *     summary: Login as an category
- *     tags: [Category]
+ *     summary: Login as an classroom
+ *     tags: [Classroom]
  *     requestBody:
  *       required: true
  *       content:
@@ -222,7 +222,7 @@ categoryRouter.put("/:id", isAuth, categoryService.updateCategory);
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Category'
+ *               $ref: '#/components/schemas/Classroom'
  *       401:
  *         description: Invalid credentials
  *         content:
@@ -233,10 +233,10 @@ categoryRouter.put("/:id", isAuth, categoryService.updateCategory);
 
 /**
  * @swagger
- * /category/image-upload:
+ * /classroom/image-upload:
  *   post:
- *     summary: Upload a image for a category
- *     tags: [Category]
+ *     summary: Upload a image for a classroom
+ *     tags: [Classroom]
  *     consumes:
  *       - multipart/form-data
  *     parameters:
@@ -245,12 +245,12 @@ categoryRouter.put("/:id", isAuth, categoryService.updateCategory);
  *         type: file
  *         description: The file to upload.
  *       - in: formData
- *         name: categoryId
+ *         name: classroomId
  *         type: string
- *         description: The id of the category
+ *         description: The id of the classroom
  *     responses:
  *       200:
  *         description: The image was uploaded successfully
  *       404:
- *         description: The category was not found
+ *         description: The classroom was not found
  */

@@ -2,13 +2,14 @@ import swaggerUiExpress from "swagger-ui-express";
 import swaggerJsDoc from "swagger-jsdoc";
 import { swaggerOptions } from "../swagger-options";
 import express, { type Response, type Request } from "express";
-import { connect } from "../server/connect.middleware";
+
 import { userRouter } from "./user.routes";
-import { categoryRouter } from "./category.routes";
-import { orderRouter } from "./order.routes";
+import { classroomRouter } from "./classroom.routes";
+
 import { infoReq } from "../server/infoReq.middleware";
+import { connect } from "../server/connect.middleware";
+
 import { checkErrorRequest } from "../domain/services/checkErrorRequest.middleware";
-import { cakeRouter } from "./cake.routes";
 
 export const configureRoutes = (app: any): any => {
   // Swagger
@@ -34,9 +35,7 @@ export const configureRoutes = (app: any): any => {
 
   // Usamos las rutas
   app.use("/user", connect, userRouter);
-  app.use("/category", connect, categoryRouter);
-  app.use("/cake", connect, cakeRouter);
-  app.use("/order", connect, orderRouter);
+  app.use("/classroom", connect, classroomRouter);
   app.use("/public", connect, express.static("public"));
   app.use("/", routerHome);
 
