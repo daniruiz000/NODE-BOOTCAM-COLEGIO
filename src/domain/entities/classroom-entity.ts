@@ -5,22 +5,12 @@
  *    Classroom:
  *      type: object
  *      required:
- *        - email
- *        - password
  *        - name
  *      properties:
- *        email:
- *          type: string
- *          format: email
- *          description: Email del autor
- *        password:
- *          type: string
- *          minLength: 8
- *          description: Contraseña del autor
  *        name:
  *          type: string
- *          minLength: 3
- *          maxLength: 22
+ *          minLength: 5
+ *          maxLength: 30
  *          description: Nombre del autor
  */
 

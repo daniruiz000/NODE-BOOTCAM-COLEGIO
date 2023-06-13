@@ -7,21 +7,36 @@
  *      required:
  *        - email
  *        - password
- *        - name
+ *        - firstName
+ *        - lastName
+ *        - children
+ *        - rol
  *      properties:
  *        email:
  *          type: string
  *          format: email
- *          description: Email del autor
+ *          description: Email del user
  *        password:
  *          type: string
  *          minLength: 8
- *          description: Contraseña del autor
- *        name:
+ *          description: Contraseña del user
+ *        firstName:
  *          type: string
  *          minLength: 3
  *          maxLength: 22
- *          description: Nombre del autor
+ *          description: Nombre del user
+ *        lastName:
+ *          type: string
+ *          minLength: 3
+ *          maxLength: 22
+ *          description: Nombre del user
+ *        children:
+ *          type: [{type: Schema.Types.ObjectId, ref: "User"}]
+ *          description: Hijos del user
+ *        rol:
+ *          type: String
+ *          enum: ROL
+ *          description: Rol del user
  */
 
 import mongoose, { Document } from "mongoose";
