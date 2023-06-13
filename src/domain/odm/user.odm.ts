@@ -1,7 +1,7 @@
-import { User, IUser } from "../entities/user-entity";
+import { User, IUser, IUserCreate } from "../entities/user-entity";
 import { Document } from "mongoose";
 
-const getAllUsers = async (page: number, limit: number): Promise<any> => {
+const getAllUsers = async (page: number, limit: number): Promise<IUser[]> => {
   return await User.find()
     .limit(limit)
     .skip((page - 1) * limit);
@@ -12,7 +12,7 @@ const getUserCount = async (): Promise<number> => {
 };
 
 const getUserById = async (id: string): Promise<Document<IUser> | null> => {
-  return await User.findById(id);
+  return await User.findById(id).populate("children");
 };
 
 const getUserByEmailWithPassword = async (email: string): Promise<Document<IUser> | null> => {
@@ -20,22 +20,34 @@ const getUserByEmailWithPassword = async (email: string): Promise<Document<IUser
   return user;
 };
 
-const getUserByName = async (name: string): Promise<Document<IUser>[]> => {
-  return await User.find({ firstName: new RegExp("^" + name.toLowerCase(), "i") });
+// const getUserByFirstName = async (firstName: string): Promise<Document<IUser>[]> => {
+//   return await User.find({ firstName: new RegExp("^" + firstName.toLowerCase(), "i") }).populate(["classroom", "children"]);
+// };
+
+const createUser = async (userData: IUserCreate): Promise<Document<IUser>> => {
+  const user = new User(userData);
+  const document: Document<IUser> = await user.save() as any;
+  const userCopy = document.toObject()
+  delete userCopy.password
+  return userCopy;
 };
 
-const createUser = async (userData: any): Promise<Document<IUser>> => {
-  const user = new User(userData);
-  const document: Document<IUser> = (await user.save()) as any;
-
-  return document;
+const createUsersFromArray = async (userList: IUserCreate[]): Promise<void> => {
+  for (let i = 0; i < userList.length; i++) {
+    const user = userList[i];
+    await userOdm.createUser(user);
+  }
 };
 
 const deleteUser = async (id: string): Promise<Document<IUser> | null> => {
   return await User.findByIdAndDelete(id);
 };
 
-const updateUser = async (id: string, userData: any): Promise<Document<IUser> | null> => {
+const deleteAllUser = async (): Promise<boolean> => {
+  return await User.collection.drop()
+};
+
+const updateUser = async (id: string, userData: IUserCreate): Promise<Document<IUser> | null> => {
   return await User.findByIdAndUpdate(id, userData, { new: true, runValidators: true });
 };
 
@@ -44,8 +56,10 @@ export const userOdm = {
   getUserCount,
   getUserById,
   getUserByEmailWithPassword,
-  getUserByName,
+  // getUserByFirstName,
   createUser,
+  createUsersFromArray,
   deleteUser,
+  deleteAllUser,
   updateUser,
 };

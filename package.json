@@ -4,14 +4,16 @@
   "description": "Node bootcam colegio",
   "main": "src/index.ts",
   "scripts": {
-    "precommit": "npm run lint && npm run build",
+    "precommit": "npm run lint && npm run build && npm run test",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
     "start": "ts-node-dev --inspect -- ./src/index.ts",
-    "seed:all": "ts-node-dev ./src/utils/users-cakes-categories-orders.seed.ts --ignore-watch",
+    "seed:users": "ts-node-dev ./src/domain/utils/users.seed.ts",
+    "seed:all": "ts-node-dev ./src/utils/users-cakes-categories-orders.seed.ts",
     "start:pro": "npm run build && node ./dist/index.js",
     "build": "tsc",
     "build:swagger-json": "ts-node-dev ./src/utils/generate-swagger-json.ts --ingore-watch",
+    "test:verbose": "cross-env DB_NAME=COLEGIO-TEST jest --maxWorkers=1",
     "test": "cross-env DB_NAME=COLEGIO-TEST jest --silent --maxWorkers=1",
     "prepare": "husky install"
   },

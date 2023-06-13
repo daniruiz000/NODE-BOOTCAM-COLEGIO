@@ -9,7 +9,7 @@ export const generateToken = (id: string, email: string): string => {
   if (!id || !email) {
     throw new Error("Email or userId missing");
   }
-
+  //  La Info que mandamos por token
   const payload = {
     id,
     email,

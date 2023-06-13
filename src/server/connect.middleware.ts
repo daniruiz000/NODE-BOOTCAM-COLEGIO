@@ -1,7 +1,7 @@
 import {
-  type Request,
-  type Response,
-  type NextFunction,
+  Request,
+  Response,
+  NextFunction,
 } from "express";
 
 import { mongoConnect } from "../domain/repositories/mongo-repository"

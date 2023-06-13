@@ -3,15 +3,15 @@ export const generateUniqueElements = (elementsNumber: number, min: number, max:
     throw new Error("No se pueden generar números únicos con los parámetros proporcionados.");
   }
 
-  const generatedNumbers: number[] = [];
+  const generatedUniqueNumbers: number[] = [];
 
-  while (generatedNumbers.length < elementsNumber) {
+  while (generatedUniqueNumbers.length < elementsNumber) {
     const randomNumber: number = Math.floor(Math.random() * (max - min + 1)) + min;
 
-    if (!generatedNumbers.includes(randomNumber)) {
-      generatedNumbers.push(randomNumber);
+    if (!generatedUniqueNumbers.includes(randomNumber)) {
+      generatedUniqueNumbers.push(randomNumber);
     }
   }
 
-  return generatedNumbers;
+  return generatedUniqueNumbers;
 }

@@ -1,12 +1,13 @@
 import { User } from "../entities/user-entity"
-import { verifyToken } from "../../utils/token";
+import { verifyToken } from "../utils/token";
 
 import {
-  type Response,
-  type NextFunction,
+  Request,
+  Response,
+  NextFunction,
 } from "express";
 
-export const isAuth = async (req: any, res: Response, next: NextFunction): Promise<void> => {
+export const isAuth = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     const token = req.headers.authorization?.replace("Bearer ", "");
 
@@ -20,7 +21,7 @@ export const isAuth = async (req: any, res: Response, next: NextFunction): Promi
       throw new Error("No tienes autorización para realizar esta operación");
     }
 
-    req.user = user;
+    req.user = { id: user.id, rol: user.rol as unknown as CUSTOM_ROL };
     next();
   } catch (error) {
     res.status(401).json({ error: "No tienes autorización para realizar esta operación" });

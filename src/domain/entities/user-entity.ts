@@ -24,21 +24,39 @@
  *          description: Nombre del autor
  */
 
-import mongoose from "mongoose";
+import mongoose, { Document } from "mongoose";
 
 import validator from "validator";
 import bcrypt from "bcrypt";
 
 const Schema = mongoose.Schema;
 
-export interface IUser {
-  email: string;
-  password: string;
-  name: string;
+export enum ROL {
+  STUDENT = "STUDENT",
+  TEACHER = "TEACHER",
+  PARENT = "PARENT",
+  ADMIN = "ADMIN"
 }
 
-const userSchema = new Schema<IUser>(
+export interface IUserCreate {
+  email: string;
+  password: string;
+  firstName: string;
+  lastName: string;
+  // classroom?: IClassroom
+  children: IUser[];
+  rol: ROL;
+}
+
+const userSchema = new Schema<IUserCreate>(
   {
+    lastName: {
+      type: String,
+      trim: true,
+      minLength: [3, "Al menos tres letras para el nombre"],
+      maxLength: [22, "Nombre demasiado largo, máximo de 22 caracteres"],
+      required: true
+    },
     email: {
       type: String,
       trim: true,
@@ -52,12 +70,31 @@ const userSchema = new Schema<IUser>(
     password: {
       type: String,
       trim: true,
-      unique: true,
       minLength: [8, "La contraseña debe tener al menos 8 caracteres"],
       select: false, // Indica que no lo deseamos mostrar cuando se realicen las peticiones.
       required: true
     },
-    name: { type: String, trim: true, minLength: [3, "Al menos tres letras para el nombre"], maxLength: [22, "Nombre demasiado largo, máximo de 22 caracteres"], required: true },
+    firstName: {
+      type: String,
+      trim: true,
+      minLength: [3, "Al menos tres letras para el nombre"],
+      maxLength: [22, "Nombre demasiado largo, máximo de 22 caracteres"],
+      required: true
+    },
+    children: {
+      type: [
+        {
+          type: Schema.Types.ObjectId,
+          ref: "User"
+        }
+      ],
+      required: true
+    },
+    rol: {
+      type: String,
+      enum: ROL,
+      required: true
+    },
 
   },
   { timestamps: true } // Cada vez que se modifique un documento refleja la hora y fecha de modificación
@@ -78,6 +115,7 @@ userSchema.pre("save", async function (next) {
     next();
   }
 });
-
+// Creamos tipos para usuarios
+export type IUser = IUserCreate & Document
 // Creamos un modelo para que siempre que creamos un user valide contra el Schema que hemos creado para ver si es valido.
-export const User = mongoose.model<IUser>("User", userSchema);
+export const User = mongoose.model<IUserCreate>("User", userSchema);
