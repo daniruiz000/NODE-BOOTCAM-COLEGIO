@@ -28,16 +28,16 @@ export const configureRoutes = (app: any): any => {
   });
 
   // Middleware previo de Info de la req.
-  app.use(infoReq);
+  // app.use(infoReq);
 
   // Middleware de conexión a BBDD
   // app.use(connect);
 
   // Usamos las rutas
-  app.use("/user", connect, userRouter);
-  app.use("/classroom", connect, classroomRouter);
-  app.use("/public", connect, express.static("public"));
-  app.use("/", routerHome);
+  app.use("/user", infoReq, connect, userRouter);
+  app.use("/classroom", infoReq, connect, classroomRouter);
+  app.use("/public", infoReq, connect, express.static("public"));
+  app.use("/", infoReq, routerHome);
 
   // Middleware de gestión de los Errores de las peticiones.
   app.use(checkErrorRequest);
