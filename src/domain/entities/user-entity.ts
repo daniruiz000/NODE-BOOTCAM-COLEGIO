@@ -43,6 +43,7 @@ import mongoose, { Document } from "mongoose";
 
 import validator from "validator";
 import bcrypt from "bcrypt";
+import { Classroom, IClassroom } from "./classroom-entity";
 
 const Schema = mongoose.Schema;
 
@@ -58,7 +59,7 @@ export interface IUserCreate {
   password: string;
   firstName: string;
   lastName: string;
-  // classroom?: IClassroom
+  classroom?: IClassroom;
   children: IUser[];
   rol: ROL;
 }
@@ -110,6 +111,11 @@ const userSchema = new Schema<IUserCreate>(
       enum: ROL,
       required: true
     },
+    classroom: {
+      type: Schema.Types.ObjectId,
+      ref: Classroom,
+      required: false
+    }
 
   },
   { timestamps: true } // Cada vez que se modifique un documento refleja la hora y fecha de modificación

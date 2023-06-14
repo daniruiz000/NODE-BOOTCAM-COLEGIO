@@ -10,7 +10,7 @@
     "start": "ts-node-dev --inspect -- ./src/index.ts",
     "seed:users": "ts-node-dev ./src/domain/utils/users.seed.ts",
     "seed:classrooms": "ts-node-dev ./src/domain/utils/classrooms.seed.ts",
-    "seed:all": "ts-node-dev ./src/utils/users-cakes-categories-orders.seed.ts",
+    "seed:all": "ts-node-dev ./src/domain/utils/colegio.seed.ts",
     "start:pro": "npm run build && node ./dist/index.js",
     "build": "tsc",
     "build:swagger-json": "ts-node-dev ./src/utils/generate-swagger-json.ts --ingore-watch",

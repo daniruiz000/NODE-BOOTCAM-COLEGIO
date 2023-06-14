@@ -15,11 +15,15 @@
  */
 
 import mongoose, { Document } from "mongoose";
+import { IUser } from "./user-entity";
+import { ISubject } from "./subject-entity";
 
 const Schema = mongoose.Schema;
 
 export interface IClassroomCreate {
   name: string;
+  students?: IUser[];
+  subjects?: ISubject[];
 }
 
 export type IClassroom = IClassroomCreate & Document

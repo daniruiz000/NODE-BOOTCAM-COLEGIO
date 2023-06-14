@@ -19,3 +19,11 @@ export const classroomList: IClassroomCreate[] = [
   { name: "3º-ESO-LETRAS" },
   { name: "4º-ESO-LETRAS" },
 ]
+
+export const subjectList = [
+  { name: "LENGUA" },
+  { name: "MATEMÁTICAS" },
+  { name: "C.SOCIALES" },
+  { name: "C.NATURALES" },
+  { name: "HISTORIA" },
+]

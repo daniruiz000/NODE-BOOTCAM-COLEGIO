@@ -51,25 +51,6 @@ export const getUserById = async (req: Request, res: Response, next: NextFunctio
   }
 };
 
-// export const getUserByName = async (req: any, res: Response, next: NextFunction): Promise<void> => {
-//   const name = req.params.name;
-
-//   try {
-//     if (req.user.name !== name && req.user.email !== "admin@gmail.com") {
-//       res.status(401).json({ error: "No tienes autorización para realizar esta operación" });
-//       return;
-//     }
-//     const user = await userOdm.getUserByName(name);
-//     if (user?.length) {
-//       res.json(user);
-//     } else {
-//       res.status(404).json([]);
-//     }
-//   } catch (error) {
-//     next(error);
-//   }
-// };
-
 export const createUser = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     // Sólo ADMIN
@@ -165,7 +146,6 @@ export const login = async (req: Request, res: Response, next: NextFunction): Pr
 export const userService = {
   getUsers,
   getUserById,
-  // getUserByName,
   createUser,
   deleteUser,
   updateUser,

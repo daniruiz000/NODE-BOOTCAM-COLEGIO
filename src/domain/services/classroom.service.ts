@@ -1,6 +1,8 @@
 import { Request, Response, NextFunction } from "express";
 
 import { classroomOdm } from "../odm/classroom.odm";
+import { userOdm } from "../odm/user.odm";
+import { subjectOdm } from "../odm/subject.odm";
 
 export const getClassrooms = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
@@ -43,8 +45,15 @@ export const getClassroomById = async (req: Request, res: Response, next: NextFu
       res.status(404).json({ error: "No existe la classroom" });
       return;
     }
-    // TO DO RELLENAR DATOS DE ASIGNATURAS
-    res.json(classroom);
+
+    const temporalClassroom = classroom.toObject()
+    const students = await userOdm.getStudentsByClassroomId(classroom.id)
+    const subjects = await subjectOdm.getSubjectsByClassroomId(classroom.id)
+
+    temporalClassroom.students = students
+    temporalClassroom.subjects = subjects
+
+    res.json(temporalClassroom);
   } catch (error) {
     next(error);
   }
