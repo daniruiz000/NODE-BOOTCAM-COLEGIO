@@ -24,8 +24,8 @@ export const colegioRelations = async (): Promise<void> => {
       subject.classroom = classrooms[i].id;
       await subject.save();
     }
-
-    console.log("Relaciones de Colégio realizadas");
+    console.log("Creadas subjects correctamente");
+    console.log("Relaciones de Colegio realizadas correctamente");
   } catch (error) {
     console.error(error);
   }
