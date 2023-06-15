@@ -22,9 +22,8 @@ const getSubjectsByClassroomId = async (classroomId: string): Promise<ISubject[]
 const createSubject = async (subjectData: ISubjectCreate): Promise<Document<ISubject>> => {
   const subject = new Subject(subjectData);
   const document: Document<ISubject> = await subject.save() as any;
-  const subjectCopy = document.toObject()
-  delete subjectCopy.password
-  return subjectCopy;
+
+  return document;
 };
 
 const createSubjectsFromArray = async (subjectList: ISubjectCreate[]): Promise<void> => {
