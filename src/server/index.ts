@@ -5,7 +5,7 @@ import { checkErrorServer } from "./checkErrorServer.middleware";
 import dotenv from "dotenv";
 dotenv.config();
 
-const FRONT_END_URL: string = process.env.DB_URL as string;
+const FRONT_END_URL: string = process.env.FRONT_END_URL as string;
 
 // Configuración del server
 export const app = express();
