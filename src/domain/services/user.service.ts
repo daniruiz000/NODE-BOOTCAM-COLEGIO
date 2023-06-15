@@ -137,7 +137,14 @@ export const login = async (req: Request, res: Response, next: NextFunction): Pr
     }
     // Generamos token JWT
     const jwtToken = generateToken(user._id.toString(), user.email);
-    res.status(200).json({ token: jwtToken });
+
+    const userToSend = user.toObject(user)
+    delete userToSend.password
+
+    res.status(200).json({
+      token: jwtToken,
+      user: userToSend,
+    });
   } catch (error) {
     next(error);
   }

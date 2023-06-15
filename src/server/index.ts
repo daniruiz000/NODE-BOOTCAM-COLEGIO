@@ -9,7 +9,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: ["http://localhost:4000", "http://localhost:3000"],
   })
 );
 // Middleware de gestión de los Errores del servidor.
